@@ -1,4 +1,23 @@
+server:
+  port: 9090
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://127.0.0.1:8761/eureka/
+
+zuul:
+  prefix: /api
+#  Uncomment to disable services automatically registering in Zuul
+#  ignoredServices: '*'
+  routes:
+    customer-by-address:
+      path: /customer-by-address/**
+      url: http://localhost:9098
+    customer-by-service:
+      path: /customer-by-service/**
+      serviceId: CUSTOMER-SERVICE
+
+spring:
+  application:
+    name: zuul-server
