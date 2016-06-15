@@ -1,6 +1,6 @@
-package org.exampledriven.eureka.customer.shared.server.server.rest;
+package org.exampledriven.zuul.eureka.customer.shared.server.server.rest;
 
-import org.exampledriven.eureka.customer.shared.server.server.domain.Customer;
+import org.exampledriven.zuul.eureka.customer.shared.server.server.domain.Customer;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

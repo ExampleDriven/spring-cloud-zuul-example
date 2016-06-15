@@ -17,6 +17,8 @@ zuul:
     customer-by-service:
       path: /customer-by-service/**
       serviceId: CUSTOMER-SERVICE
+    static:
+      path: /static/**
 
 spring:
   application:
