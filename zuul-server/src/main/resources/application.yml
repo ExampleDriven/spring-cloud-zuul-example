@@ -7,8 +7,9 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka/
 
 zuul:
+  #Service will be mapped under the /api URI
   prefix: /api
-#  Uncomment to disable services automatically registering in Zuul
+#  Uncomment to disable auto-registering all services read from Eureka
 #  ignoredServices: '*'
   routes:
     customer-by-address:
