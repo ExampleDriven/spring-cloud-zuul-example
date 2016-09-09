@@ -1,16 +1,21 @@
 package org.exampledriven.zuul.filter;
 
-import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.filters.StaticResponseFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-/**
- * Created by Peter_Szanto on 6/14/2016.
- */
 @Component
-public class StaticFilter extends ZuulFilter {
+public class StaticFilter extends StaticResponseFilter {
 
     @Override
     public String filterType() {
@@ -18,27 +23,34 @@ public class StaticFilter extends ZuulFilter {
     }
 
     @Override
-    public int filterOrder() {
-        return 0;
+    public Object uri() {
+        return Pattern.compile("/api/static.*");
     }
 
-    @Override
-    public boolean shouldFilter() {
-        String path = RequestContext.getCurrentContext().getRequest().getRequestURI();
-        return "/api/static".equals(path);
-    }
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     @Override
-    public Object run() {
+    public String responseBody() {
+        if (RequestContext.getCurrentContext().getRequest().getRequestURI().endsWith(".svg")) {
 
-        RequestContext ctx = RequestContext.getCurrentContext();
-        // Set the default response code for static filters to be 200
-        ctx.setResponseStatusCode(HttpServletResponse.SC_OK);
-        // first StaticResponseFilter instance to match wins, others do not set body and/or status
-        if (ctx.getResponseBody() == null) {
-            ctx.setResponseBody("static content");
-            ctx.setSendZuulResponse(false);
+            RequestContext.getCurrentContext().getResponse().setContentType("image/svg+xml");
+
+            try {
+                InputStream inputStream = resourceLoader.getResource("classpath:static/example.svg").getInputStream();
+                String result = new BufferedReader(new InputStreamReader(inputStream))
+                        .lines()
+                        .collect(Collectors.joining("\n"));
+                return result;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+
+        } else {
+
+            return "Static content";
+
         }
-        return null;
     }
 }
