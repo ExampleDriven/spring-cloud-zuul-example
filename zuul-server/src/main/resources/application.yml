@@ -12,6 +12,9 @@ zuul:
 #  Uncomment to disable auto-registering all services read from Eureka
 #  ignoredServices: '*'
   routes:
+    test:
+      path: /test/**
+      url: http://google.com
     customer-by-address:
       path: /customer-by-address/**
       url: http://localhost:9098
@@ -24,3 +27,5 @@ zuul:
 spring:
   application:
     name: zuul-server
+  aop:
+    proxy-target-class: true

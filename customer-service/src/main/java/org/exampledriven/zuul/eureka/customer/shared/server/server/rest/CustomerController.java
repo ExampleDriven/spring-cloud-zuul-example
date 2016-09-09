@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-@RestController()
+@RestController
 public class CustomerController {
 
     private List<Customer> customers;
