@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
-    <lang:groovy id="exampleSurgicalDebugFilter" refresh-check-delay="3000" script-source="classpath:groovy/ExampleSurgicalDebugFilter.groovy">
+
+    <lang:groovy id="exampleSurgicalDebugFilter" proxy-target-class="true" refresh-check-delay="3000" script-source="classpath:groovy/ExampleSurgicalDebugFilter.groovy">
     </lang:groovy>
+
 
 <!--
-    <lang:groovy id="abc" refresh-check-delay="3000" script-source="file:C:/dev/abc.groovy">
+    <lang:groovy id="abc" refresh-check-delay="3000" proxy-target-class="true" script-source="file:C:/dev/abc.groovy">
     </lang:groovy>
 -->
-
 
 </beans>
