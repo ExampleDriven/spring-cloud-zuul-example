@@ -14,3 +14,4 @@ Service registration by Eureka service id | http://localhost:9090/api/customer-b
 Display Routes | http://localhost:9090/routes
 Static response | http://localhost:9090/api/static
 Static response | http://localhost:9090/api/static/dsf.svg
+Dynamic routing | http://localhost:9090/api/redirect
